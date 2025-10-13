@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import "./Voting-system.css";
 import "./BallotConfirmation.css";
+import ProcessBar from "./ProcessBar.js"; 
+import VoteContext from "../Contexts/VoteContext";
+import { useContext } from "react";
 
 const staticCard = {
   numberOfEmojis: 6,
@@ -144,10 +147,22 @@ function getEmojiGridConfig(n) {
   }
 }
 
-const BallotConfirmation = ({ type = "card", ballotNumber = 12345 }) => {
+const BallotConfirmation = ({ type = "card", ballotNumber = 12345}) => {
   const navigate = useNavigate();
+    const { userSelectedYes } = useContext(VoteContext);
+
   const now = new Date();
   const dateTime = now.toLocaleString();
+
+   // Define the steps for each flow:
+  const stepsNo = ["Voted Before", "Voting", "Ballot Confirmation"];
+  const stepsYes = ["Voted Before", "Visual Selection", "Voting", "Ballot Confirmation"];
+
+  // Determine which steps array and current step to use.
+  // For "No": currentStep is 3.
+  // For "Yes": currentStep is 4.
+  const steps = userSelectedYes ? stepsYes : stepsNo;
+  const currentStep = userSelectedYes ? 4 : 3;
 
   // Move these inside the component
   const randomColors = generateDistinctColors(20);
@@ -161,6 +176,7 @@ const BallotConfirmation = ({ type = "card", ballotNumber = 12345 }) => {
     <div className="page-wrapper">
 
       <main className="welcome-main">
+        <ProcessBar steps={steps} currentStep={currentStep} />
        <h1>Confirmation</h1>
        <div className="confirmation-desc">
           You have cast your ballot succesfully!

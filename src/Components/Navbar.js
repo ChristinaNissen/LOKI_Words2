@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { MdHelpOutline, MdHome } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import "./Navbar.css";
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
-  const location = useLocation();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);

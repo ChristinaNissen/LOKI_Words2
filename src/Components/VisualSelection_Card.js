@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import "./Voting-system.css";
 import "./VisualSelection_Card.css";
+import ProcessBar from "./ProcessBar.js";
+import VoteContext from "../Contexts/VoteContext";
+
 const staticCard = {
   numberOfEmojis: 6,
   emojiRef: "😊",
@@ -160,8 +163,15 @@ function getInitialCards() {
   return randomCards;
 }
 
-const VisualSelection = () => {
+ const VisualSelection = () => {
   const navigate = useNavigate();
+  const { userSelectedYes } = useContext(VoteContext);
+
+  const stepsNo = ["Voted Before", "Voting", "Ballot Confirmation"];
+  const stepsYes = ["Voted Before", "Visual Selection", "Voting", "Ballot Confirmation"];
+  const steps = userSelectedYes ? stepsYes : stepsNo;
+  const currentStep = userSelectedYes ? 2 : 0;  // adjust as needed
+
   const [cards, setCards] = useState(() => getInitialCards());
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
@@ -188,7 +198,7 @@ const VisualSelection = () => {
 
   const handleNext = () => {
     if (selected.length > 0) {
-      navigate("/voting");
+      navigate("/voting",{ state: { userSelectedYes: true } });
     } else {
       alert("Please select one item to continue");
     }
@@ -197,6 +207,7 @@ const VisualSelection = () => {
   return (
     <div className="page-wrapper">
       <main className="welcome-main">
+        <ProcessBar steps={steps} currentStep={currentStep} />
         <h1>Identification of previously cast ballots</h1>
         <div className="welcome-desc">
           Please select all items below that you have seen when casting your previous ballots.

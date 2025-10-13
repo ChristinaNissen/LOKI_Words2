@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import "./Voting-system.css";
 import "./VisualSelection_Picture.css";
+import VoteContext from "../Contexts/VoteContext";
+import ProcessBar from "./ProcessBar.js"
 import img4 from "../Images/alligator.jpg"
 import img5 from "../Images/alpaca.jpg"
 import img6 from "../Images/Apples.png"
@@ -114,10 +117,22 @@ img81,img82,img83,img84,img85,img86,img87,img88,img89,img90,img91,img92,img93,im
 const PAGE_SIZE = 40;
 
 const VisualSelection = () => {
+  const { userSelectedYes } = useContext(VoteContext);
   const navigate = useNavigate();
   const [items, setItems] = useState(allImages.slice(0, 50));
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
+
+  
+    // Define the steps for each flow:
+  const stepsNo = ["Voted Before", "Voting", "Ballot Confirmation"];
+  const stepsYes = ["Voted Before", "Visual Selection", "Voting", "Ballot Confirmation"];
+
+  // Determine which steps array and current step to use.
+  // For "No": currentStep is 3.
+  // For "Yes": currentStep is 4.
+  const steps = userSelectedYes ? stepsYes : stepsNo;
+  const currentStep = userSelectedYes ? 2 : 0;
 
   // Dynamically add 10 new images each minute
   useEffect(() => {
@@ -146,7 +161,7 @@ const VisualSelection = () => {
 
   const handleNext = () => {
     if (selected.length > 0) {
-      navigate("/voting");
+      navigate("/voting",{ state: { userSelectedYes: true } });
     } else {
       alert("Please select one item to continue");
     }
@@ -155,6 +170,8 @@ const VisualSelection = () => {
   return (
     <div className="page-wrapper">
       <main className="welcome-main">
+        <ProcessBar steps={steps} currentStep={currentStep} />
+
         <h1>Identification of previously cast ballots</h1>
         <div className="welcome-desc">
           Please select all items below that you have seen when casting your previous ballots.

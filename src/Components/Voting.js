@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import "./Voting-system.css";
-
+import ProcessBar from "./ProcessBar.js"
+import VoteContext from "../Contexts/VoteContext";
+import { useContext } from "react";
 const candidates = [
   { id: 1, name: "Alice T. Smith", party: "Party A" },
   { id: 2, name: "Mark Jones", party: "Party B" },
@@ -15,6 +17,10 @@ const candidates = [
 ];
 
 const Voting = () => {
+  const location = useLocation();
+  // Extract userSelectedYes from the navigation state; default false if not provided.
+  const { userSelectedYes } = useContext(VoteContext);
+
   const [selected, setSelected] = useState("");
   const [error, setError] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
@@ -41,9 +47,26 @@ const Voting = () => {
 
   const selectedCandidate = candidates.find((c) => c.id === selected);
 
+    // Define the steps for each flow
+  const stepsNo = ["Voted Before", "Voting", "Ballot Confirmation"];
+  const stepsYes = ["Voted Before", "Visual Selection", "Voting", "Ballot Confirmation"];
+
+  // Determine which steps array and current step to use:
+  // For "No": Voting is step 2; for "Yes": Voting is step 3.
+  const steps = userSelectedYes ? stepsYes : stepsNo;
+  const currentStep = userSelectedYes ? 3 : 2;
+
+   console.log("Voting: userSelectedYes =", userSelectedYes);
+  console.log("Voting: steps =", steps, "Length:", steps.length);
+  console.log("Voting: currentStep =", currentStep);
+
+  
   return (
     <div className="page-wrapper">
       <main className="welcome-main">
+        
+       <ProcessBar steps={steps} currentStep={currentStep} />
+
         <h1>Voting</h1>
         <p className="voting-desc">
           Please select your preferred candidate below.

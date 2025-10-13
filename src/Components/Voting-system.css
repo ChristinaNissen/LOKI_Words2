@@ -236,3 +236,48 @@ input:focus,
   margin: 0; /* Remove extra margin */
   vertical-align: middle;
 }
+
+
+.text-main {
+  color: #444;
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+}
+
+/* Base text style */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Headings */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.75rem 0;
+}
+
+/* Paragraphs and text elements */
+p, span, label {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+/* Other text classes if needed */
+.text-large {
+  font-size: 1.25rem;
+}
+
+.text-small {
+  font-size: 0.875rem;
+}
+
+/* Adjust these values as needed */
+
