@@ -39,6 +39,7 @@ const Voting = () => {
   const handleConfirm = () => {
     setShowConfirm(false);
     navigate("/confirmation");
+    //navigate("/confirmation2");
   };
 
   const handleCancel = () => {

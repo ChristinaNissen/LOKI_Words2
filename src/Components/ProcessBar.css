@@ -1,53 +1,76 @@
-.process-status-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Container for the entire process bar */
+.process-bar-container {
+  width: 90%;
+  max-width: 800px;
   margin: 20px auto;
+  box-sizing: border-box;
 }
 
-.process-step {
+/* Row that holds the circle steps and dividers */
+.icon-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  position: relative;
 }
 
+/* Wrap each step (circle plus label) */
+.process-step {
+  position: relative;
+  flex-shrink: 0;
+  /* Ensure the container has at least the width of the icon */
+  width: 40px;
+  text-align: center;
+}
+
+/* Container for the circle (ensures fixed size) */
+.step-icon-container {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+}
+
+/* The step circle */
 .step-icon {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #e0e0e0; /* grey */
-  color: #fff;
+  background-color: #e0e0e0;  /* Grey initially */
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
+.step-icon.active,
+.step-icon.completed {
+  background-color: #ffd600; /* Primary-yellow */
+}
+
+/* Label centered below the circle – its horizontal center aligns with the parent container's center */
 .step-label {
-  margin-top: 8px;
+  position: absolute;
+  top: 50px;           /* Adjust vertical spacing as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
   font-size: 0.9rem;
-  text-align: center;
   color: #666;
 }
 
-/* Divider line between steps */
+/* Container for the divider between steps */
+.step-divider-container {
+  flex-grow: 1;
+}
+
+/* The divider (connector) that fills available space */
 .step-divider {
-  width: 40px; /* adjust as needed */
   height: 4px;
-  background-color: #e0e0e0; /* grey when unfulfilled */
+  background-color: #e0e0e0;  /* Grey initially */
+  width: 100%;
   transition: background-color 0.3s ease;
-  margin: 0 8px;
 }
 
-/* Change the appearance for fulfilled/active steps */
-.process-step.completed .step-icon,
-.process-step.active .step-icon {
-  background-color: #ffd600; /* primary-yellow */
-}
-
-.process-step.completed ~ .step-divider,
-.process-step.active ~ .step-divider {
+/* When the divider is “completed,” change its colour */
+.step-divider.completed {
   background-color: #ffd600;
 }
