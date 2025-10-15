@@ -36,7 +36,8 @@ const Voting = () => {
 
   const handleConfirm = () => {
     setShowConfirm(false);
-    navigate("/confirmation");
+    const candidateName = candidates.find((c) => c.id === selected)?.name;
+    navigate("/confirmation", { state: { votedCandidate: candidateName } });
   };
 
   const handleCancel = () => {

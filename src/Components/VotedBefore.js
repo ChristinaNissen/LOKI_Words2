@@ -81,7 +81,7 @@ const VotedBefore = () => {
         {showError && (
           <div className="error-overlay">
             <div className="error-message">
-              <p>Please select an option before clicking Next.</p>
+              <p>Please select an option</p>
               <button className="button" onClick={() => setShowError(false)}>
                 Close
               </button>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import "./Voting-system.css";
 import "./BallotConfirmation.css";
@@ -149,7 +149,11 @@ function getEmojiGridConfig(n) {
 
 const BallotConfirmation = ({ type = "card", ballotNumber = 12345 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userSelectedYes } = useContext(VoteContext);
+
+  // Retrieve candidate name from navigation state; fallback if not set.
+  const votedCandidate = location.state?.votedCandidate || "Candidate Unknown";
 
   const now = new Date();
   const dateTime = now.toLocaleString();
@@ -170,49 +174,23 @@ const BallotConfirmation = ({ type = "card", ballotNumber = 12345 }) => {
     <div className="page-wrapper">
       <main className="welcome-main">
         <ProcessBar steps={steps} currentStep={currentStep} />
-        <h1>Confirmation</h1>
-        
-
-        
-        <div className="text-main">
-          You have cast your ballot succesfully! Below is a visual presentation of your cast ballot.
-
-    This is you need to remember in the case you want to update your vote. <strong>OBS!</strong> For security reasons, you should <strong>not share</strong>  this information with anyone and you should <strong>not save</strong> this visual presentation anywhere.
+         <div className="intro-container">
+          <h1>Confirmation</h1>
+          <div className="text-main">
+            You have cast your ballot succesfully! Below is a visual presentation of your cast ballot. 
+          </div>
+          <div className="security-box">
+            <p className="text-small">
+              <strong>Security Feature:</strong><br/>
+              This part of the voting system ensures that you can vote freely without any outside pressure.        
+            </p>
+          </div>
         </div>
-
         <div className="card-wide">
-
+          <h1 style={{ width: "100%", textAlign: "left", margin: "0 0 10px 40px" }}>
+            Card 
+          </h1>
           <div className="confirmation-visual">
-            {type === "words" && (
-              <div className="confirmation-words">
-                <div className="confirmation-date">{dateTime}</div>
-              </div>
-            )}
-
-            {type === "images" && (
-              <div className="confirmation-images">
-                <img
-                  src={`https://via.placeholder.com/80?text=${wordRef}`}
-                  alt="ballot icon"
-                  className="confirmation-img"
-                />
-                <div className="confirmation-date">{dateTime}</div>
-              </div>
-            )}
-
-            {type === "patterns" && (
-              <div
-                className="confirmation-pattern"
-                style={{
-                  background: `repeating-linear-gradient(45deg, #${Math.floor(Math.random() * 16777215).toString(
-                    16
-                  )}, #${Math.floor(Math.random() * 16777215).toString(16)} 10px)`
-                }}
-              >
-                <span className="confirmation-date">{dateTime}</span>
-              </div>
-            )}
-
             {type === "card" && (
               <div
                 className="confirmation-card"
@@ -245,20 +223,19 @@ const BallotConfirmation = ({ type = "card", ballotNumber = 12345 }) => {
                         {staticCard.emojiRef}
                       </span>
                     ))}
-                    
                   </div>
-                  
                 </div>
-                
               </div>
             )}
-        <div className="confirmation-datetime">{dateTime}</div>
+            <div className="confirmation-datetime">{dateTime}</div>
+            <div className="confirmation-candidate">
+              Candidate: {votedCandidate}
+            </div>
           </div>
-        
         </div>
          <button className="button" style={{ marginTop: 40 }} onClick={() => navigate("/studyinfo2")}>
             Logout
-          </button>
+         </button>
       </main>
       <Footer />
     </div>
