@@ -66,9 +66,9 @@ const Voting = () => {
         <ProcessBar steps={steps} currentStep={currentStep} />
 
         <h1> Voting</h1>
-        <p className="text-main">
+        <div className="text-main">
           Please select your preferred candidate below.
-        </p>
+        </div>
         <div className="card-wide">
           <h1 style={{ width: "100%", textAlign: "left", margin: "0 0 10px 40px" }}>
             Ballot

@@ -18,6 +18,10 @@
   border: 2px solid transparent; /* start with no visible border */
 }
 
+.yellow-box:hover {
+  background-color: rgba(255, 255, 204, 0.8);
+}
+
 /* When selected, change to a light yellow background and add a darker yellow border */
 .yellow-box.selected {
   background-color: rgba(255, 255, 204, 0.8); /* light yellow */
