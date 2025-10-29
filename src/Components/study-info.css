@@ -38,6 +38,12 @@
   background: #0d47a1;
 }
 
+.study-button:disabled {
+  background-color: #bdbdbd; /* grey when disabled */
+  color: #f5f5f5;
+  cursor: not-allowed;
+}
+
 .study-list {
   text-align: left;
   margin: 1.5rem auto;
@@ -46,4 +52,44 @@
 
 .study-center-bg h1 {
   margin-bottom: 1.5rem; /* or your preferred value */
+}
+
+.info-link {
+  color: #000;
+  text-decoration: underline;
+}
+
+.info-link:hover {
+  color: #1976d2;
+}
+
+/* Make all text in the info pages bigger and more readable */
+.study-center-bg,
+.study-center-bg p,
+.study-center-bg ul,
+.study-center-bg li,
+.study-center-bg label,
+.study-center-bg button,
+.study-center-bg h1,
+.study-center-bg h3 {
+  font-size: 1.18rem;
+}
+
+/* Optionally, make headings even larger for clarity */
+.study-center-bg h1 {
+  font-size: 2.1rem;
+}
+
+.study-center-bg h3 {
+  font-size: 1.35rem;
+}
+
+/* Make the checkbox input bigger and keep it styled nicely */
+.study-center-bg input[type="checkbox"] {
+  width: 1.5em;
+  height: 1.5em;
+  color: #e3f0ff;
+  accent-color: #1976d2; /* Makes the checkmark blue on supported browsers */
+  margin-right: 0.6em;
+  vertical-align: middle;
 }

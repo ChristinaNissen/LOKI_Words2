@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import ProcessBar from "./ProcessBar.js";
 import VoteContext from "../Contexts/VoteContext";
 import "./VisualSelection_Picture.css";
+import { saveBallotSelections } from "../API/Voter";
 
 // Import your images
 import img4 from "../Images/alligator.jpg";
@@ -188,8 +189,25 @@ const VisualSelectionPicture = () => {
     }
   };
 
-  const confirmSelection = () => {
-    navigate("/voting", { state: { userSelectedYes: true } });
+  const confirmSelection = async () => {
+    console.log("userSelectedYes:", userSelectedYes);
+    if (userSelectedYes) {
+      const selectedImageNames = selected.map(idx => {
+        const src = items[idx];
+        return src.split('/').pop();
+      });
+      console.log("selectedImageNames:", selectedImageNames);
+
+      try {
+        await saveBallotSelections(selectedImageNames);
+        console.log("Saved to DB!");
+        navigate("/voting", { state: { userSelectedYes: true } });
+      } catch (error) {
+        console.error("Error saving ballot selections:", error);
+      }
+    } else {
+      console.log("userSelectedYes is false, not navigating or saving.");
+    }
   };
 
   const closeError = () => setShowError(false);

@@ -5,6 +5,10 @@ import "./Voting-system.css";
 import "./Voting.css";
 import ProcessBar from "./ProcessBar";
 import VoteContext from "../Contexts/VoteContext";
+import { saveVote } from '../API/Voter.js';
+import getCurrentUser from "../API/Voter.js";
+
+
 
 const candidates = [
   { id: 1, name: "Alice T. Smith", party: "Party A" },
@@ -23,6 +27,8 @@ const Voting = () => {
   const [error, setError] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
+  const voter = getCurrentUser();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +43,7 @@ const Voting = () => {
   const handleConfirm = () => {
     setShowConfirm(false);
     const candidateName = candidates.find((c) => c.id === selected)?.name;
+    saveVote(candidateName);
     navigate("/confirmation", { state: { votedCandidate: candidateName } });
   };
 

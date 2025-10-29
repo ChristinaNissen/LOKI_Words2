@@ -4,6 +4,7 @@ export async function addVoter(ID, password) {
   if (!ID || !password) {
     throw new Error("ID and password are required");
   }
+  await Parse.User.logOut();
   let user = new Parse.User();
   user.set("username", ID);
   user.set("password", password);
@@ -19,8 +20,13 @@ export async function addVoter(ID, password) {
   }
 }
 
-export async function loginVoter(ID) {
-  await Parse.User.logIn(ID, ID);
+export async function loginVoter(ID, password) {
+  await Parse.User.logOut();
+  await Parse.User.logIn(ID, password);
+}
+
+export async function logoutVoter(){
+    await Parse.User.logOut();
 }
 
 export default function getCurrentUser() {

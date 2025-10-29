@@ -4,7 +4,7 @@ import "./Login.css";
 import "./Voting-system.css";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // install with: npm install react-icons
-import { addVoter } from '../API/Voter.js'; // Adjust path as needed
+import { addVoter, loginVoter } from '../API/Voter.js'; // Adjust path as needed
 import Parse from "parse";
 
 const Login = ({ setIsLoggedIn }) => {
@@ -19,7 +19,6 @@ const Login = ({ setIsLoggedIn }) => {
 
 
 const handleSubmit = async (e) => {
-  console.log("Parse keys:", Parse.applicationId, Parse.javaScriptKey, Parse.serverURL);
   e.preventDefault();
   let hasError = false;
 
@@ -39,16 +38,30 @@ const handleSubmit = async (e) => {
 
   if (!hasError) {
     try {
-      await addVoter(userID, password);
+      // Try to log in first
+      await loginVoter(userID, password);
       setIsLoggedIn(true);
       navigate("/votedbefore");
     } catch (error) {
-      if (error.message.includes("Account already exists")) {
-        setUserIDError("This user ID is already taken. Please choose another.");
+      // If login fails, try to sign up
+      if (
+        error.message.includes("Invalid username/password") ||
+        error.message.includes("user not found")
+      ) {
+        try {
+          await addVoter(userID, password);
+          setIsLoggedIn(true);
+          navigate("/votedbefore");
+        } catch (signupError) {
+          if (signupError.message.includes("Account already exists")) {
+            setUserIDError("This user ID is already taken. Please choose another.");
+          } else {
+            setPasswordError("Login failed. Please try again.");
+          }
+        }
       } else {
         setPasswordError("Login failed. Please try again.");
       }
-      console.error('Error adding voter:', error);
     }
   }
 };
