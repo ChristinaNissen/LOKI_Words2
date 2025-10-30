@@ -253,8 +253,14 @@ const VisualSelectionPicture = () => {
                   key={globalIdx}
                   className={`visual-selection-picture${selected.includes(globalIdx) ? " selected" : ""}`}
                   onClick={() => handleSelect(globalIdx)}
+                  style={{ cursor: "pointer" }}
                 >
-                  <img src={imgSrc} alt={`visual-${globalIdx}`} />
+                  <div className="picture-img-wrapper">
+                    <img src={imgSrc} alt={`visual-${globalIdx}`} />
+                  </div>
+                  <div className="picture-label">
+                    {imgSrc.split('/').pop().split('.')[0].replace(/_/g, ' ')}
+                  </div>
                 </div>
               );
             })}

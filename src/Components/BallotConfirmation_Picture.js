@@ -86,6 +86,9 @@ function BallotConfirmation_Picture(setIsLoggedIn) {
               borderStyle: "solid"
             }}
           />
+          <div style={{fontWeight: "bold", marginTop: "10px", fontSize: "1.5rem"}}>
+            Alpaca
+          </div>
 
             <div className="confirmation-info" style={{marginTop:"20px"
             }}>
