@@ -490,62 +490,114 @@ const VisualSelection = () => {
         )}
         {showConfirm && (
           <div className="modal-backdrop">
-            <div className="modal">
-              <h2> Please review your chosen card{selected.length > 1 ? "s" : ""} below. <br /> Do you wish to proceed?</h2>
-              <div className="selected-cards-preview">
-                {selected.map(idx => {
+            <div className="modal" style={{
+  display: "flex",
+  flexDirection: "column",
+  maxHeight: "90vh",
+  maxWidth: "90vw",
+  width: "900px",
+  background: "#fff",
+  borderRadius: "12px",
+  boxShadow: "0 2px 20px rgba(0,0,0,0.2)",
+  padding: "24px 32px",
+  overflow: "hidden"
+}}>
+  <h2 style={{ marginBottom: 16 }}>
+    Please review your chosen card{selected.length > 1 ? "s" : ""} below.<br />
+    Do you wish to proceed?
+  </h2>
+  <div className="selected-cards-preview" style={{
+    flex: "1 1 auto",
+    overflowY: "auto",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 24,
+    justifyContent: "center",
+    alignItems: "flex-start",
+    marginBottom: 24,
+    maxHeight: "50vh"
+  }}>
+    {selected.map(idx => {
                   const card = cards[idx];
+                  const colorObj = COLOR_LIST.find(c => c.hex.toLowerCase() === card.colorRef.toLowerCase()) || { name: "Color", hex: card.colorRef };
+                  const emojiNames = {
+                    "😊": "smiling face",
+                    "🐑": "sheep",
+                    "⭐": "star",
+                    // ...add all emojis you use
+                  };
+                  const emojiName = emojiNames[card.emojiRef] || "emoji";
+                  const cardLabel = `${colorObj.name} card with ${card.numberOfEmojis} ${card.emojiRef} ${emojiName}${card.numberOfEmojis > 1 ? "s" : ""}`;
                   return (
                     <div
                       key={idx}
-                      className="confirmation-card preview-item"
                       style={{
-                        backgroundColor: card.colorRef,
-                        position: "relative",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
                         margin: "4px"
                       }}
                     >
-                      <span className="card-corner card-corner-top-left">{card.numberOfEmojis}</span>
-                      <span className="card-corner card-corner-bottom-right">{card.numberOfEmojis}</span>
-                      <div className="emoji-area">
-                        <div
-                          className="confirmation-emoji-grid"
-                          style={{
-                            gridTemplateColumns: `repeat(${card.config.columns}, 1fr)`,
-                            gridTemplateRows: `repeat(${card.config.rows}, 1fr)`
-                          }}
-                        >
-                          {card.config.positions.map(([x, y], i) => (
-                            <span
-                              key={i}
-                              className="confirmation-emoji"
-                              style={{
-                                fontSize: "30px", // smaller for preview
-                                gridColumn: x % 1 === 0 ? x + 1 : "1 / span 2",
-                                gridRow: y + 1,
-                                justifySelf: "center"
-                              }}
-                            >
-                              {card.emojiRef}
-                            </span>
-                          ))}
+                      <div
+                        className="confirmation-card preview-item"
+                        style={{
+                          backgroundColor: card.colorRef,
+                          position: "relative"
+                        }}
+                      >
+                        <span className="card-corner card-corner-top-left">{card.numberOfEmojis}</span>
+                        <span className="card-corner card-corner-bottom-right">{card.numberOfEmojis}</span>
+                        <div className="emoji-area">
+                          <div
+                            className="confirmation-emoji-grid"
+                            style={{
+                              gridTemplateColumns: `repeat(${card.config.columns}, 1fr)`,
+                              gridTemplateRows: `repeat(${card.config.rows}, 1fr)`
+                            }}
+                          >
+                            {card.config.positions.map(([x, y], i) => (
+                              <span
+                                key={i}
+                                className="confirmation-emoji"
+                                style={{
+                                  fontSize: "30px", // smaller for preview
+                                  gridColumn: x % 1 === 0 ? x + 1 : "1 / span 2",
+                                  gridRow: y + 1,
+                                  justifySelf: "center"
+                                }}
+                              >
+                                {card.emojiRef}
+                              </span>
+                            ))}
+                          </div>
                         </div>
+                      </div>
+                      <div className="card-label" style={{ marginTop: 8, fontWeight: "bold", textAlign: "center" }}>
+                        {cardLabel}
                       </div>
                     </div>
                   );
                 })}
-              </div>
-              <div className="modal-actions" style={{ display: "flex", justifyContent: "center", alignItems: "center", gap:"16px", marginTop: "5px", marginBottom: "20px" }}>
-  <button 
-    className="button" 
-    onClick={confirmSelection}>
-    Yes, proceed
-  </button>
-  <button className="button-secondary" onClick={() => setShowConfirm(false)}>
-    Cancel
-  </button>
+  </div>
+  <div className="modal-actions" style={{
+    flexShrink: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "16px",
+    marginTop: "5px",
+    marginBottom: "20px"
+  }}>
+    <button 
+      className="button" 
+      onClick={confirmSelection}>
+      Yes, proceed
+    </button>
+    <button className="button-secondary" onClick={() => setShowConfirm(false)}>
+      Cancel
+    </button>
+  </div>
 </div>
-            </div>
           </div>
         )}
       </main>

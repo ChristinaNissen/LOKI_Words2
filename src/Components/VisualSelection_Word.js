@@ -328,11 +328,56 @@ const VisualSelectionWord = () => {
                 <br /> Do you wish to proceed?
               </h2>
               <div className="selected-pictures-preview-picture">
-                {selected.map(idx => (
-                  <div key={idx} className="preview-item-picture">
-                    <img src={items[idx]} alt={`preview-${idx}`} />
-                  </div>
-                ))}
+                {selected.map(idx => {
+                  const imgSrc = items[idx];
+                  const label = imgSrc.split('/').pop().split('.')[0].replace(/_/g, ' ');
+                  return (
+                    <div
+                      key={idx}
+                      className="preview-item-picture"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: 180,
+                        height: 210,
+                        border: "2px solid #c1bfbfff",
+                        borderRadius: 4,
+                        background: "#fff",
+                        boxSizing: "border-box",
+                        margin: 4,
+                        paddingBottom: 0,
+                        marginBottom: 0 // <-- Add this line
+                      }}
+                    >
+                      <img
+                        src={imgSrc}
+                        alt={`preview-${idx}`}
+                        style={{
+                          width: "100%",
+                          height: 120,
+                          objectFit: "contain",
+                          background: "#fff",
+                          display: "block"
+                        }}
+                      />
+                      <div
+                        className="picture-label"
+                        style={{
+                          marginTop: 4,
+                          fontWeight: "bold",
+                          textAlign: "center",
+                          fontSize: "1.1rem",
+                          color: "#222",
+                          textTransform: "capitalize",
+                          width: "100%"
+                        }}
+                      >
+                        {label}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
               <div className="modal-actions-picture">
                 <button className="button" onClick={confirmSelection}>

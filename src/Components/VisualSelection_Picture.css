@@ -112,24 +112,33 @@
   grid-template-columns: repeat(auto-fit, 180px);
   gap: 20px;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 /* Updated preview item: size close to your main grid cards */
 .preview-item-picture {
   width: 180px;
-  height: 180px;
+  height: 210px; /* Increased to fit label */
   overflow: hidden;
   border-radius: 4px;
   box-sizing: border-box;
   border: 2px solid #c1bfbfff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  margin-bottom: 0; /* Remove large margin */
+  padding-bottom: 0.5em;
 }
 
 /* Ensure the preview image fills the container */
 .preview-item-picture img {
   width: 100%;
-  height: 100%;
+  height: 168px; /* Increase image height to reduce white space below */
   object-fit: cover;
+  display: block;
+  background: #fff;
 }
 
 /* Modal actions styling */
@@ -143,16 +152,11 @@
 }
 
 .picture-label {
-  color: #222 !important;
-  font-size: 1.2rem !important;
+  margin-top: 4px !important;
+  font-size: 1.1rem !important;
   font-weight: bold !important;
-  background: #fff0 !important;
-  display: block !important;
-  position: static !important;
-  margin-top: 0.4em !important;
   text-align: center !important;
-  z-index: 10 !important;
-  opacity: 1 !important;
+  color: #222 !important;
   text-transform: capitalize;
 }
 
@@ -160,4 +164,42 @@
   width: 100%;
   height: 170px; /* slightly less than .visual-selection-picture */
   overflow: hidden;
+}
+
+/* Modal preview: less space below label, label centered in white area */
+.preview-item-picture {
+  width: 180px;
+  height: 210px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 2px solid #c1bfbfff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  margin-bottom: 0;
+  padding-bottom: 0; /* Remove extra padding */
+  overflow: hidden;
+}
+
+.preview-item-picture img {
+  width: 100%;
+  height: 168px; /* Increase image height to reduce white space below */
+  object-fit: cover;
+  display: block;
+  background: #fff;
+}
+
+.preview-item-picture .picture-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 42px; /* Fills the remaining space, centers label vertically */
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  color: #222;
+  text-transform: capitalize;
 }
