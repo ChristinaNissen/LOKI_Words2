@@ -45,3 +45,64 @@
   color: #444;
   font-size: 1rem;
 }
+
+.welcome-h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 24px 0 16px 0;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .welcome-illustration img {
+    max-width: 90%;
+    margin: 16px auto 16px auto;
+    border-radius: 6px;
+  }
+
+  .accordion {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: -10px;
+    margin-right: -10px;
+    box-sizing: border-box;
+    padding: 0 4px;
+  }
+
+  .accordion-title {
+    font-size: 16px;
+    padding: 10px 0;
+    padding-left:5px;
+  }
+
+  .accordion-arrow {
+    font-size: 0.95rem;
+    margin-right: 2px!important;
+  }
+
+  .accordion-content {
+    font-size: 0.93rem!important;
+    padding: 0 0 10px 0;
+    padding-left:5px!important;
+  }
+
+  section.card {
+    max-width: 80%;
+    width: 100vw;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    overflow-x: hidden;
+  }
+
+  .h2{
+    font-size: 16px!important;
+  }
+
+  .welcome-h2 {
+    font-size: 1.2rem;
+    margin: 18px 0 10px 0;
+  }
+}

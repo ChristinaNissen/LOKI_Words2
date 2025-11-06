@@ -226,3 +226,127 @@ body {
   font-size: 1.1rem;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+
+@media (max-width: 600px) {
+  .page-wrapper {
+    min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .welcome-main {
+    padding-top: 48px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .button,
+  .button-secondary {
+    font-size: 1rem;
+    padding: 10px 0.5em;
+    width: 80%;
+    min-width: 0;
+    margin: 16px 0 0 0;
+    height: auto;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .card,
+  .card-alt {
+    min-width: 0;
+    max-width: 98vw;
+    width: 98vw;
+    padding: 18px 6px 16px 6px;
+    margin-top: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .card-wide {
+    min-width: 0;
+    max-width: 100vw;
+    width: 100vw;
+    padding: 18px 6px 16px 6px;
+    margin-top: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .card .card-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin: 24px 0 8px 0;
+    margin-top: 36px;
+    text-align: center;
+  }
+
+  .text-main {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    max-width: 98vw;
+    padding: 0 2vw;
+    text-align: left;
+  }
+
+  .text-small {
+    font-size: 0.97rem;
+    margin-top: 10px;
+    padding: 0 2vw;
+  }
+
+  .footer {
+    padding: 18px 6px 12px 6px;
+    font-size: 0.97rem;
+    max-width: 100vw;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+
+  /* Modal styles */
+  .modal-backdrop-voting {
+    align-items: flex-start;
+    padding-top: 20vw;
+  }
+
+  .modal-voting {
+    min-width: 0;
+    max-width: 98vw;
+    padding: 14px 4px;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .modal-actions-voting {
+    gap: 8px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Error overlay and message */
+  .error-overlay {
+    align-items: flex-start;
+    padding-top: 20vw;
+  }
+
+  .error-message {
+    font-size: 1rem;
+    padding: 12px;
+    max-width: 90vw;
+  }
+
+  .text-main {
+    padding-top:0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+  }
+}

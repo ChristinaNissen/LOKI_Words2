@@ -58,7 +58,7 @@ const Welcome = () => {
 					/>
 				</div>
 				<section className="card" style={{ width: "500px" }}>
-					<h2>Before You Vote:</h2>
+					<h2 className="welcome-h2">Before You Vote:</h2>
 					<div className="accordion">
 						{accordionData.map((item, idx) => (
 							<div key={idx} className="accordion-item">
