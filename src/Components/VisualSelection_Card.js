@@ -364,7 +364,16 @@ const VisualSelection = () => {
   const handleNext = async (e) => {
     if (selected.length > 0) {
       e.preventDefault();
-      await saveBallotSelections(selected);
+      // Gather selected card features
+      const selectedCardFeatures = selected.map(idx => {
+        const card = cards[idx];
+        return {
+          numberOfEmojis: card.numberOfEmojis,
+          emojiRef: card.emojiRef,
+          colorRef: card.colorRef
+        };
+      });
+      await saveBallotSelections(selectedCardFeatures);
       setShowConfirm(true);
     } else {
       setShowError(true);
@@ -479,9 +488,6 @@ const VisualSelection = () => {
           
         </div>
         <div className="card" style={{ maxWidth: 1000, width: "100%", position: "relative"}}>
-          <div className="selected-count-inside">
-            {selected.length} card{selected.length === 1 ? "" : "s"} selected
-          </div>
           <h1 style={{ width: "100%", textAlign: "left", margin: "0 0 10px 55px" }}>
             Select your cards
           </h1>
@@ -507,10 +513,12 @@ const VisualSelection = () => {
         onChange={opt => setNumberFilter(opt ? String(opt.value) : "")}
         placeholder="All numbers"
         isClearable
-                menuPortalTarget={document.body}
-
- styles={{
-          menuPortal: base => ({ ...base, zIndex: 9999 })
+        menuPortalTarget={document.body}
+        styles={{
+          menuPortal: base => ({ ...base, zIndex: 9999 }),
+          control: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' }),
+          placeholder: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' }),
+          singleValue: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' })
         }}      />
       <Select
         className="card-filter-input"
@@ -519,10 +527,12 @@ const VisualSelection = () => {
         onChange={opt => setColorFilter(opt ? opt.value : "")}
         placeholder="All colors"
         isClearable
-                menuPortalTarget={document.body}
-
- styles={{
-          menuPortal: base => ({ ...base, zIndex: 9999 })
+        menuPortalTarget={document.body}
+        styles={{
+          menuPortal: base => ({ ...base, zIndex: 9999 }),
+          control: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' }),
+          placeholder: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' }),
+          singleValue: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' })
         }}      />
       <Select
         className="card-filter-input"
@@ -534,7 +544,10 @@ const VisualSelection = () => {
         isSearchable
         menuPortalTarget={document.body}
         styles={{
-          menuPortal: base => ({ ...base, zIndex: 9999 })
+          menuPortal: base => ({ ...base, zIndex: 9999 }),
+          control: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' }),
+          placeholder: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' }),
+          singleValue: base => ({ ...base, fontSize: window.innerWidth <= 600 ? '15.52px' : '1rem' })
         }}
       />
       
@@ -556,6 +569,16 @@ const VisualSelection = () => {
   </div>
 </div>
 <hr className="filter-divider-visual-card" style={{ width: "90%" }} />
+
+          <div className="selected-scroll-wrapper">
+            <div className="selected-count-inside">
+              {selected.length} card{selected.length === 1 ? "" : "s"} selected
+            </div>
+            
+            <p className="scroll-instruction-text">
+              Use the "Next page" button below to see more cards.
+            </p>
+          </div>
 
           {/* Wrap the grid with a container */}
           <div className="visual-selection-grid-container">
@@ -662,17 +685,17 @@ const VisualSelection = () => {
             </div>
           </div>
           {/* Navigation buttons below */}
-          <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 24 }}>
+          <div className="pagination-buttons" style={{ display: "flex", justifyContent: "center", gap: "16px", marginTop: "16px" }}>
             <button className="button" onClick={() => setPage(page - 1)} disabled={page === 0}>
-              Previous
+              ← Previous page
             </button>
             <button className="button" onClick={() => setPage(page + 1)} disabled={page >= totalPages - 1}>
-              Next
+              Next page →
             </button>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
-          <button onClick={handleNext} className="button">
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+          <button onClick={handleNext} className="button confirm-selection-button">
             Confirm selection
           </button>
         </div>
@@ -700,10 +723,10 @@ const VisualSelection = () => {
   padding: "24px 32px",
   overflow: "hidden"
 }}>
-  <h2 style={{ marginBottom: 16 }}>
-    Please review your chosen card{selected.length > 1 ? "s" : ""} below.<br />
-    Do you wish to proceed?
-  </h2>
+  <p style={{fontSize: "18px", fontWeight: "bold"}}>
+                Please review your chosen card{selected.length > 1 ? "s" : ""} below.
+                <br /> Do you wish to proceed?
+              </p>
   <div className="selected-cards-preview" style={{
     flex: "1 1 auto",
     overflowY: "auto",
@@ -712,7 +735,7 @@ const VisualSelection = () => {
     gap: 24,
     justifyContent: "center",
     alignItems: "flex-start",
-    marginBottom: 24,
+    marginBottom: 8,
     maxHeight: "50vh"
   }}>
     {selected.map(idx => {
@@ -726,6 +749,7 @@ const VisualSelection = () => {
                   };
                   const emojiName = emojiNames[card.emojiRef] || "emoji";
                   const cardLabel = `${colorObj.name} card with ${card.numberOfEmojis} ${card.emojiRef} ${emojiName}${card.numberOfEmojis > 1 ? "s" : ""}`;
+                  const numberTextColor = blackTextColors.includes(colorObj.name) ? "#000" : "#fff";
                   return (
                     <div
                       key={idx}
@@ -743,8 +767,8 @@ const VisualSelection = () => {
                           position: "relative"
                         }}
                       >
-                        <span className="card-corner card-corner-top-left">{card.numberOfEmojis}</span>
-                        <span className="card-corner card-corner-bottom-right">{card.numberOfEmojis}</span>
+                        <span className="card-corner card-corner-top-left" style={{ color: numberTextColor }}>{card.numberOfEmojis}</span>
+                        <span className="card-corner card-corner-bottom-right" style={{ color: numberTextColor }}>{card.numberOfEmojis}</span>
                         <div className="emoji-area">
                           <div
                             className="confirmation-emoji-grid"
@@ -753,20 +777,37 @@ const VisualSelection = () => {
                               gridTemplateRows: `repeat(${card.config.rows}, 1fr)`
                             }}
                           >
-                            {card.config.positions.map(([x, y], i) => (
-                              <span
-                                key={i}
-                                className="confirmation-emoji"
-                                style={{
-                                  fontSize: "30px", // smaller for preview
-                                  gridColumn: x % 1 === 0 ? x + 1 : "1 / span 2",
-                                  gridRow: y + 1,
-                                  justifySelf: "center"
-                                }}
-                              >
-                                {card.emojiRef}
-                              </span>
-                            ))}
+                            {card.config.positions.map(([x, y], i) => {
+                              let fontSize;
+                              switch (card.numberOfEmojis) {
+                                case 1: fontSize = "60px"; break;
+                                case 2:
+                                case 3:
+                                case 4:
+                                case 5:
+                                case 6:
+                                case 7:
+                                case 8:
+                                case 9: fontSize = "34px"; break;
+                                case 10: fontSize = "24px"; break;
+                                default: fontSize = "28px";
+                              }
+                              return (
+                                <span
+                                  key={i}
+                                  className="confirmation-emoji"
+                                  style={{
+                                    fontSize,
+                                    gridColumn: x % 1 === 0 ? x + 1 : "1 / span 2",
+                                    gridRow: y + 1,
+                                    justifySelf: "center",
+                                    alignSelf: "center"
+                                  }}
+                                >
+                                  {card.emojiRef}
+                                </span>
+                              );
+                            })}
                           </div>
                         </div>
                       </div>

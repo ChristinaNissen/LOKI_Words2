@@ -379,9 +379,132 @@
   z-index: 1; /* or remove z-index if not needed */
 }
 
-@media(width:600px){
+@media (max-width: 600px) {
   .intro-container{
     margin:0 auto 0px auto!important;
+  }
+
+  .visual-selection-grid-container {
+    height: 450px !important;
+    overflow-y: auto !important;
+    padding: 0 10px !important;
+    margin: 0 auto !important;
+    width: 95% !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 8px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: smooth !important;
+  }
+
+  .visual-selection-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 10px 5px !important;
+    margin-top: 0 !important;
+    justify-items: center !important;
+  }
+
+  .confirmation-card {
+    min-width: 80px !important;
+    min-height: 100px !important;
+    padding: 12px !important;
+  }
+
+  .card-corner {
+    font-size: 1.2rem !important;
+  }
+
+  .emoji-area {
+    padding: 8px 4px !important;
+  }
+
+  .confirmation-emoji-grid {
+    justify-items: center !important;
+    justify-content: center !important;
+  }
+
+  .card-filter-headline {
+    font-size: 15.52px !important;
+  }
+
+  .card-filter-instructions {
+    font-size: 15.52px !important;
+  }
+
+  .card-filter-input {
+    font-size: 15.52px !important;
+  }
+
+  .card-filter-input .css-1dimb5e-singleValue,
+  .card-filter-input .css-1jqq78o-placeholder,
+  .card-filter-input input {
+    font-size: 15.52px !important;
+  }
+
+  .card-label {
+    font-size: 16px !important;
+  }
+
+  /* Modal responsive styling */
+  .modal {
+    max-width: 95vw !important;
+    width: 95vw !important;
+    padding: 16px !important;
+  }
+
+  .modal-actions {
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .modal-actions .button,
+  .modal-actions .button-secondary {
+    width: auto !important;
+    min-width: 120px !important;
+    padding: 11px 24px !important;
+  }
+
+  /* Preview card emoji centering in modal */
+  .preview-item {
+    width: 180px !important;
+    height: 280px !important;
+    padding: 10px !important;
+    margin: 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .preview-item .emoji-area {
+    position: static !important;
+    width: 100% !important;
+    height: 70% !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+
+  .preview-item .confirmation-emoji-grid {
+    display: grid !important;
+    align-items: center !important;
+    justify-items: center !important;
+    align-content: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .preview-item .card-corner {
+    font-size: 1.1rem !important;
   }
 
 }
