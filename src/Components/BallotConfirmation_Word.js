@@ -4,17 +4,23 @@ import Footer from "./Footer";
 import "./Voting-system.css";
 import "./BallotConfirmation.css";
 import word from "../Words/Sibling.png";
-import word2 from "../Words/Actress.png";
 import ProcessBar from "./ProcessBar.js"; 
 import { useLocation } from "react-router-dom";
 import VoteContext from "../Contexts/VoteContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { saveVisuaRepresentation } from "../API/Voter";
+import getCurrentUser from "../API/Voter";
 
 function BallotConfirmation_Word(setIsLoggedIn) {
   const navigate = useNavigate();
   const location = useLocation();
   const { userSelectedYes } = useContext(VoteContext);
+  const [isLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const currentUser = getCurrentUser();
+    setIsUserLoggedIn(!!currentUser);
+  }, []);
 
   // Retrieve candidate name from navigation state; fallback if not set.
   const votedCandidate = location.state?.votedCandidate || "Candidate Unknown";
@@ -44,6 +50,8 @@ function BallotConfirmation_Word(setIsLoggedIn) {
     }
     setShowLogoutConfirm(false);
   };
+
+ 
 
   return (
     <div className="page-wrapper">
@@ -83,27 +91,33 @@ function BallotConfirmation_Word(setIsLoggedIn) {
       </li>
     </ul>
   </div>
-          <img
-            src={word}
-            className="image-word"
-            alt="Visual ballot"
-            style={{
-              maxWidth: "100%",
-              maxHeight: "400px",
-              marginTop: "0px",
-              borderColor: "#c1bfbfff",
-              borderWidth: "2px",
-              borderStyle: "solid"
-            }}
-          />
+          {isLoggedIn && (
+            <img
+              src={word}
+              className="image-word"
+              alt="Visual ballot"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "400px",
+                marginTop: "0px",
+                borderColor: "#c1bfbfff",
+                borderWidth: "2px",
+                borderStyle: "solid"
+              }}
+            />
+          )}
        
 
             <div className="confirmation-info">
-                 <div className="confirmation-card-label" style={{fontWeight: "bold", fontSize: "1.5rem", marginTop: "10px"}}>
-            Sibling
-          </div>
-              <div className="confirmation-datetime">{dateTime}</div>
-              <div className="confirmation-candidate"> {votedCandidate}</div>
+                 {isLoggedIn && (
+                   <>
+                     <div className="confirmation-card-label" style={{fontWeight: "bold", fontSize: "1.5rem", marginTop: "10px"}}>
+                       Sibling
+                     </div>
+                     <div className="confirmation-datetime">{dateTime}</div>
+                     <div className="confirmation-candidate"> {votedCandidate}</div>
+                   </>
+                 )}
             </div>
         
         </div>

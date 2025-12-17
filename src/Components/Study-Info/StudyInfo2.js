@@ -22,6 +22,24 @@ const StudyInfo2 = () => {
     }
   }
 
+   // Block navigation using browser back/forward buttons
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+
+    // Ensure this page is the top of the stack
+    navigate(currentPath, { replace: true });
+
+    const onPopState = () => {
+      navigate(currentPath, { replace: true });
+    };
+
+    window.addEventListener("popstate", onPopState);
+
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [navigate]);
+
   return (
     <div className="study-center-bg">
       <div className="inner-box-info centered-info-page">
