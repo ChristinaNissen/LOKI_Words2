@@ -23,20 +23,21 @@ const StudyInfo2 = () => {
   }
 
    // Block navigation using browser back/forward buttons
+   // Prevent back navigation by redirecting to current page
   useEffect(() => {
-    const currentPath = window.location.pathname;
-
-    // Ensure this page is the top of the stack
-    navigate(currentPath, { replace: true });
-
-    const onPopState = () => {
-      navigate(currentPath, { replace: true });
+    const preventBackNavigation = (event) => {
+      window.history.pushState(null, '', window.location.pathname);
+      navigate('/studyinfo2', { replace: true });
     };
 
-    window.addEventListener("popstate", onPopState);
+    // Push initial state
+    window.history.pushState(null, '', window.location.pathname);
+
+    // Listen for popstate event (back button)
+    window.addEventListener('popstate', preventBackNavigation);
 
     return () => {
-      window.removeEventListener("popstate", onPopState);
+      window.removeEventListener('popstate', preventBackNavigation);
     };
   }, [navigate]);
 
