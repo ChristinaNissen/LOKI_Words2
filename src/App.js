@@ -76,10 +76,10 @@ function App() {
           <Route path="/selection" element={<VisualSelectionWord />} />
           <Route path="/voting" element={<Voting  />} />
           <Route path="/confirmation" element={
-            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmation setIsLoggedIn={setIsLoggedIn} />
+            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmation_Word setIsLoggedIn={setIsLoggedIn} />
           } />
           <Route path="/confirmation2" element={
-            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmation_Card2 setIsLoggedIn={setIsLoggedIn} />
+            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmation_Words2 setIsLoggedIn={setIsLoggedIn} />
           } />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/private-mode" element={<NoPrivateMode/>} />

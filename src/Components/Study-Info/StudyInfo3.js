@@ -44,8 +44,7 @@ const StudyInfo3 = () => {
             <div className="step-number">1</div>
             <div className="step-content">
               <p>
-                All candidates are fictional and for the purpose of this study we ask you to vote update your for{" "}
-                <strong>Sofia Lee.</strong>
+                All candidates are fictional. In this second part of the study, we ask you to <strong>update your vote</strong> and cast it for <strong>Sofia Lee.</strong>
               </p>
               <label className="check-box blue-bg-highlight">
                 <input
