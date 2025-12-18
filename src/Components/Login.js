@@ -5,7 +5,6 @@ import "./Voting-system.css";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // install with: npm install react-icons
 import { addVoter, loginVoter } from '../API/Voter.js'; // Adjust path as needed
-import Parse from "parse";
 
 const Login = ({ setIsLoggedIn }) => {
   const [userID, setUserID] = useState("");

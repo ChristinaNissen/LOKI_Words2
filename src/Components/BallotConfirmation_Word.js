@@ -11,7 +11,7 @@ import { useContext, useState, useEffect } from "react";
 import { saveVisuaRepresentation } from "../API/Voter";
 import getCurrentUser from "../API/Voter";
 
-function BallotConfirmation_Word(setIsLoggedIn) {
+function BallotConfirmationWord(setIsLoggedIn) {
   const navigate = useNavigate();
   const location = useLocation();
   const { userSelectedYes } = useContext(VoteContext);
@@ -147,7 +147,7 @@ function BallotConfirmation_Word(setIsLoggedIn) {
   );
 }
 
-export default BallotConfirmation_Word;
+export default BallotConfirmationWord;
 
 
 

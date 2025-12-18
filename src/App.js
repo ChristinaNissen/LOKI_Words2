@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import ConsentForm from './Components/Study-Info/ConsentForm';
 import ConsentForm2 from './Components/Study-Info/ConsentForm2';
 import StudyInfo1 from './Components/Study-Info/StudyInfo1';
@@ -7,8 +7,8 @@ import Welcome from './Components/Welcome';
 import Login from './Components/Login';
 import VotedBefore from './Components/VotedBefore';
 import Voting from './Components/Voting';
-import BallotConfirmation_Word from './Components/BallotConfirmation_Word';
-import BallotConfirmation_Words2 from './Components/BallotConfirmation_Words2';
+import BallotConfirmationWord from './Components/BallotConfirmation_Word';
+import BallotConfirmationWords2 from './Components/BallotConfirmation_Words2';
 import VisualSelectionWord from './Components/VisualSelection_Word';
 import StudyInfo2 from './Components/Study-Info/StudyInfo2';
 import StudyInfo3 from './Components/Study-Info/StudyInfo3';
@@ -76,10 +76,10 @@ function App() {
           <Route path="/selection" element={<VisualSelectionWord />} />
           <Route path="/voting" element={<Voting  />} />
           <Route path="/confirmation" element={
-            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmation_Word setIsLoggedIn={setIsLoggedIn} />
+            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmationWord setIsLoggedIn={setIsLoggedIn} />
           } />
           <Route path="/confirmation2" element={
-            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmation_Words2 setIsLoggedIn={setIsLoggedIn} />
+            hasReachedStudyInfo2 ? <Navigate to="/studyinfo2" replace /> : <BallotConfirmationWords2 setIsLoggedIn={setIsLoggedIn} />
           } />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/private-mode" element={<NoPrivateMode/>} />

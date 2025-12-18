@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import getCurrentUser, { getUserID, logoutVoter } from "../../API/Voter";
+import  { getUserID, logoutVoter } from "../../API/Voter";
 import "./study-info.css";
 
 const StudyInfo2 = () => {
-  const voter = getCurrentUser();
   const navigate = useNavigate();
   const [userID, setUserID] = useState(null);
 
