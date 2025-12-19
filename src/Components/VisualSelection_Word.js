@@ -319,7 +319,7 @@ const VisualSelectionWord = () => {
           <div className="filter-card">
   <div className="filter-headline">Find your words</div>
   <div className="filter-instructions">
-    Use the search box or click a letter to filter the list below to find your words.
+    Use the search box or click a letter to filter by the first letter of the word (e.g., A for Apple, B for Baby).
   </div>
   <div className="filter-controls">
     <div className="search-wrapper">

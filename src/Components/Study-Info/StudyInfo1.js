@@ -4,7 +4,7 @@ import "./study-info.css";
 import Instructions from "../../Assets/Instructions_e-voting.pdf";
 import { downloadFile } from "../../util";
 
-const StudyInfo1 = () => {
+const StudyInfo3 = () => {
   const [checked, setChecked] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,11 +16,13 @@ const StudyInfo1 = () => {
 
   const handleChangeCheckbox = () => setChecked((prev) => !prev);
 
-  const downloadInstructions = () => {
-    downloadFile(Instructions, "General-Election-2023.pdf");
-    setDownloaded(true);
-  };
-
+   const downloadInstructions = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      downloadFile(Instructions, "General-Election-2023.pdf");
+      setDownloaded(true);
+    };
+  
   const handleStart = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -44,7 +46,7 @@ const StudyInfo1 = () => {
             <div className="step-number">1</div>
             <div className="step-content">
               <p>
-                All candidates are fictional. For this study, we ask you to cast your vote as if this is your <strong>first time voting</strong> in the election.
+                All candidates are fictional. In this second part of the study, we ask you to <strong>update your vote</strong> in the same election from the first part. You can choose the same candidate as before or a different one.
               </p>
               <label className="check-box blue-bg-highlight">
                 <input
@@ -53,7 +55,7 @@ const StudyInfo1 = () => {
                   onChange={handleChangeCheckbox}
                   className="blue-bg-highlight"
                 />
-                I understand and will vote as if this is my first time
+                I understand and will update my vote
               </label>
             </div>
           </div>
@@ -103,4 +105,4 @@ const StudyInfo1 = () => {
   );
 };
 
-export default StudyInfo1;
+export default StudyInfo3;
