@@ -28,6 +28,17 @@ Parse.initialize("jtO0rpfkWou1ZaizNu8Ih2kVvpbZZVI7seveuqTI", "6DMKiq09hmLpDnawXB
 Parse.serverURL = "https://parseapi.back4app.com/";
 //Parse.serverURL = PARSE_HOST_URL;
 
+// ScrollToTop component to reset scroll position on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
@@ -60,6 +71,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       {!hideNavbarOn.includes(location.pathname) && (
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       )}
