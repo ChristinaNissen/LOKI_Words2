@@ -13,6 +13,7 @@ export async function addVoter(ID, password, RandomID) {
   user.set("TrackingID", RandomID)
   try {
     await user.signUp();
+    console.log("New voter registered successfully:", user);
   } catch (err) {
     console.error("addVoter error:", err, err.name, err.message, err.code);
     if (err.xhr) console.error("err.xhr:", err.xhr);
@@ -37,10 +38,17 @@ export async function loginVoter(ID, password) {
 
 export async function logoutVoter(){
   try {
+    console.log("Starting logout process...");
+    console.log("LocalStorage before clear:", {...localStorage});
+    console.log("SessionStorage before clear:", {...sessionStorage});
+    
     await Parse.User.logOut();
     // Clear all session storage and local storage
     sessionStorage.clear();
     localStorage.clear();
+    
+    console.log("LocalStorage after clear:", {...localStorage});
+    console.log("SessionStorage after clear:", {...sessionStorage});
     console.log("Logout successful - all sessions cleared");
   } catch (err) {
     console.error("Logout error:", err);

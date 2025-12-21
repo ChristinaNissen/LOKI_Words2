@@ -117,7 +117,9 @@ const StudyInfo2 = () => {
           className="study-button"
           style={{ marginTop: "2rem" }}
           onClick={async () => {
+            console.log("Go to survey button clicked - starting logout");
             await logoutVoter();
+            console.log("Logout complete - redirecting to survey...");
             window.location.href =
               "https://www.survey-xact.dk/LinkCollector?key=T5JG3UXLJ215";
           }}
