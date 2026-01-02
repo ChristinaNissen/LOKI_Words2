@@ -63,13 +63,14 @@ function BallotConfirmationWord(setIsLoggedIn) {
           <div className="text-main text-main-confirmation">
             You have cast your ballot succesfully! Below is a visual presentation of your cast ballot. 
           </div>
-            <div className="security-box">
+             <div className="security-box">
             <p className="text-small">
               <strong>Why do you need this word?</strong><br />
               This word is a unique visual identifier linked to your voting record. You will need to remember this word from memory if you wish to update your vote later in the election, as it proves your identity and ensures that only you can make changes to your ballot.<br /><br />
               To protect against coercion risks, please take time to memorise this word now. Do not write it down or save it anywhere. Relying on your memory helps keep your vote private and secure.
+              <br /><br />
+              <a href="/help#ballot-verification-security" className="faq-link">Read more in the FAQ</a>
             </p>
-            <a href="/help#ballot-verification-security" className="faq-link">Read more in the FAQ</a>
           </div>
         </div>
 
