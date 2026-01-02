@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PrivateModeWarning.css";
 import Footer from "./Footer";
@@ -6,6 +6,10 @@ import "./Voting-system.css";
 
 const NoPrivateMode = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleLoginClick = () => {
     navigate("/login");
@@ -18,10 +22,13 @@ const NoPrivateMode = () => {
 
         <div className="security-box">
           <p className="text-small">
-           <strong>Security Feature:</strong><br/>
-          For your security and privacy, please use your browser's private (incognito)
-          browsing mode when using the voting platform. This ensures that your session is
-          protected and your browsing data is not retained.
+            <strong>Why use private browsing?</strong><br/>
+Private (incognito) mode helps protect your voting privacy by ensuring your session and activity are not saved on your device. The voting system itself never reveals whether you have voted before or how you have voted. However, your browser may otherwise keep traces such as history, cookies, or cached data, which could show that you accessed the voting platform.
+<br></br>
+<br></br>
+Using private browsing helps prevent others from discovering whether you have participated in online voting, even if they have access to your device. This is especially important for protecting you against coercion or unwanted scrutiny, and helps ensure your vote remains confidential.
+<br /><br />
+            <a href="/help#incognito-mode" className="faq-link">Read more in the FAQ</a>
           </p>
         </div>
 
