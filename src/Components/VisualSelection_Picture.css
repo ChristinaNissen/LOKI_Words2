@@ -1,3 +1,27 @@
+/* Wrapper for selected count and scroll instruction */
+.selected-scroll-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  justify-content: flex-end;
+}
+
+/* Scroll instruction text */
+.scroll-instruction-text {
+  text-align: left;
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide scroll instruction in normal design */
+.scroll-instruction {
+  display: none;
+}
+
 .faq-link {
   color: #bfa700;
   font-weight: 500;

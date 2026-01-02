@@ -372,13 +372,13 @@ const VisualSelectionWord = () => {
 <hr className="filter-divider-visual" />
           
           <div className="selected-scroll-wrapper">
-            <p className="scroll-instruction-text">
-              Scroll through the words and use the "Next page" button below to see more.
-            </p>
-            
             <div className="selected-count-inside">
               {selected.length} selected
             </div>
+            
+            <p className="scroll-instruction-text">
+              Scroll through the words and use the "Next page" button below to see more.
+            </p>
           </div>
           
           <div className="pictures-scroll-container">
