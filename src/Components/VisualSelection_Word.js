@@ -115,7 +115,7 @@ const allImages = [
   img94, img95, img96, img97
 ];
 
-const PAGE_SIZE = 40;
+const PAGE_SIZE = 39;
 
 // Helper function: Fisher-Yates shuffle
 const shuffleArray = (array) => {
@@ -295,7 +295,7 @@ const VisualSelectionWord = () => {
           <div className="text-main">
             Please select all words below that you have seen when casting your previous ballots.
           </div>
-            <div className="security-box">
+          <div className="security-box-selection">
             <p className="text-small">
               <strong>Why is this step needed?</strong><br />
               This feature verifies your identity, ensuring that only you can update your vote by recognising the words shown to you after your previous voting session(s).<br /><br />
@@ -303,13 +303,14 @@ const VisualSelectionWord = () => {
               If you cannot remember your word(s), you can always vote in person at your local polling station.<br /><br />
               <a href="/help#ballot-verification-security" className="faq-link">Read more in the FAQ</a>
             </p>
+
           </div>
         </div>
-        <div className="card" style={{ maxWidth: 1000, width: "100%", margin: "0 auto" }}>
-          <h1 style={{ width: "100%", textAlign: "left", margin: "0 0 10px 55px" }}>
+        <div className="card-wide">
+          <h1 className="card-heading-select" style={{ width: "100%", textAlign: "left", margin: "0 0 10px 40px" }}>
             Select your words
           </h1>
-          <div className="instruction-list" style={{ maxWidth: "800px", margin: "0 auto 0px auto", textAlign:"left" }}>
+          <div className="instruction-list" style={{ maxWidth: "800px", margin: "0 auto 20px auto", textAlign: "left", paddingLeft: "35px" }}>
             <ul>
               <li>You must select <strong>all</strong> the words below that you have seen when casting your previous ballots. This includes words from both valid and invalid ballots.</li>
               <li>The system will not reveal if your selection is correct for security reasons.</li>
@@ -610,3 +611,4 @@ const VisualSelectionWord = () => {
 };
 
 export default VisualSelectionWord;
+
