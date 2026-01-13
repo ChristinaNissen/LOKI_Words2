@@ -115,7 +115,7 @@ const allImages = [
   img94, img95, img96, img97
 ];
 
-const PAGE_SIZE = 39;
+const PAGE_SIZE = 42;
 
 // Helper function: Fisher-Yates shuffle
 const shuffleArray = (array) => {
