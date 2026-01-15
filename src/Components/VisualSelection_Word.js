@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import ProcessBar from "./ProcessBar.js";
@@ -6,113 +6,58 @@ import VoteContext from "../Contexts/VoteContext";
 import "./VisualSelection_Picture.css";
 import { saveCorrectSelections, getVisualRepresentation, saveBallotSelections } from '../API/Voter.js';
 
-// Import your images
-import img4 from "../Words/Actress.png";
-import img5 from "../Words/Airport.png";
-import img6 from "../Words/Ankle.png";
-import img7 from "../Words/Arm.png";
-import img8 from "../Words/Apple.png";
-import img9 from "../Words/Army.png";
-import img10 from "../Words/Baby.png";
-import img11 from "../Words/Asia.png";
-import img12 from "../Words/Bacon.png";
-import img13 from "../Words/Basement.png";
-import img14 from "../Words/Beef.png";
-import img15 from "../Words/Bison.png";
-import img16 from "../Words/Boyfriend.png";
-import img17 from "../Words/Breast.png";
-import img18 from "../Words/Brother.png";
-import img19 from "../Words/Champagne.png";
-import img20 from "../Words/Chauffeur.png";
-import img21 from "../Words/Child.png";
-import img22 from "../Words/Cod.png";
-import img23 from "../Words/College.png";
-import img24 from "../Words/Colonel.png";
-import img25 from "../Words/Convict.png";
-import img26 from "../Words/Cousin.png";
-import img27 from "../Words/Cowboy.png";
-import img28 from "../Words/Crevice.png";
-import img29 from "../Words/Crib.png";
-import img30 from "../Words/Crown.png";
-import img31 from "../Words/Daughter.png";
-import img32 from "../Words/Dentist.png";
-import img33 from "../Words/Dolphin.png";
-import img34 from "../Words/Dorm.png";
-import img35 from "../Words/Dress.png";
-import img36 from "../Words/Egypt.png";
-import img37 from "../Words/Europe.png";
-import img38 from "../Words/Farmer.png";
-import img39 from "../Words/Female.png";
-import img40 from "../Words/Fireman.png";
-import img41 from "../Words/Fox.png";
-import img42 from "../Words/France.png";
-import img43 from "../Words/Friar.png";
-import img44 from "../Words/Friend.png";
-import img45 from "../Words/Garden.png";
-import img46 from "../Words/Gazelle.png";
-import img47 from "../Words/Girl.png";
-import img48 from "../Words/Grizzly.png";
-import img49 from "../Words/Horse.png";
-import img50 from "../Words/Husband.png";
-import img51 from "../Words/Igloo.png";
-import img52 from "../Words/Infant.png";
-import img53 from "../Words/Inmate.png";
-import img54 from "../Words/Japan.png";
-import img55 from "../Words/Ketchup.png";
-import img56 from "../Words/Knife.png";
-import img57 from "../Words/Lady.png";
-import img58 from "../Words/Lake.png";
-import img59 from "../Words/Leg.png";
-import img60 from "../Words/Leopard.png";
-import img61 from "../Words/Lily.png";
-import img62 from "../Words/Lion.png";
-import img63 from "../Words/London.png";
-import img64 from "../Words/Lover.png";
-import img65 from "../Words/Mailman.png";
-import img66 from "../Words/Meat.png";
-import img67 from "../Words/Nurse.png";
-import img68 from "../Words/Orange.png";
-import img69 from "../Words/Ox.png";
-import img70 from "../Words/Oyster.png";
-import img71 from "../Words/Palace.png";
-import img72 from "../Words/Parent.png";
-import img73 from "../Words/Police.png";
-import img74 from "../Words/Preacher.png";
-import img75 from "../Words/Prince.png";
-import img76 from "../Words/Princess.png";
-import img77 from "../Words/Puppy.png";
-import img78 from "../Words/Queen.png";
-import img79 from "../Words/Rifle.png";
-import img80 from "../Words/Scalpel.png";
-import img81 from "../Words/Sheriff.png";
-import img82 from "../Words/Sibling.png";
-import img83 from "../Words/Sister.png";
-import img84 from "../Words/Skirt.png";
-import img85 from "../Words/Sphinx.png";
-import img86 from "../Words/Spouse.png";
-import img87 from "../Words/Stallion.png";
-import img88 from "../Words/Student.png";
-import img89 from "../Words/Teacher.png";
-import img90 from "../Words/Thief.png";
-import img91 from "../Words/Uncle.png";
-import img92 from "../Words/Vagrant.png";
-import img93 from "../Words/Waitress.png";
-import img94 from "../Words/Wife.png";
-import img95 from "../Words/Woman.png";
-import img96 from "../Words/Zebra.png";
-import img97 from "../Words/Wrist.png";
-
-const allImages = [
-  img4, img5, img6, img7, img8, img9, img10, img11, img12, img13,
-  img14, img15, img16, img17, img18, img19, img20, img21, img22, img23,
-  img24, img25, img26, img27, img28, img29, img30, img31, img32, img33,
-  img34, img35, img36, img37, img38, img39, img40, img41, img42, img43,
-  img44, img45, img46, img47, img48, img49, img50, img51, img52, img53,
-  img54, img55, img56, img57, img58, img59, img60, img61, img62, img63,
-  img64, img65, img66, img67, img68, img69, img70, img71, img72, img73,
-  img74, img75, img76, img77, img78, img79, img80, img81, img82, img83,
-  img84, img85, img86, img87, img88, img89, img90, img91, img92, img93,
-  img94, img95, img96, img97
+// Static list of 500 words
+const allWords = [
+  "Boyfriend", "Princess", "Queen", "Sister", "Wife", "Asia", "Brother", "Ox", "Husband", "Girl",
+  "Daughter", "Woman", "Japan", "London", "Student", "Actress", "Baby", "Lady", "Lover", "Police",
+  "Teacher", "Waitress", "Cod", "Egypt", "Friar", "Infant", "Prince", "Uncle", "Arm", "Bison",
+  "College", "Europe", "France", "Meat", "Puppy", "Sibling", "Chauffeur", "Child", "Horse", "Lion",
+  "Nurse", "Orange", "Parent", "Sheriff", "Spouse", "Army", "Ankle", "Apple", "Beef", "Breast",
+  "Cousin", "Dolphin", "Female", "Friend", "Leg", "Sphinx", "Champagne", "Cowboy", "Colonel", "Airport",
+  "Bacon", "Dentist", "Crevice", "Farmer", "Fireman", "Gazelle", "Grizzly", "Igloo", "Inmate", "Kitchen",
+  "Knife", "Lake", "Leopard", "Lily", "Mailman", "Oyster", "Preacher", "Rifle", "Scalpel", "Skirt",
+  "Stallion", "Thief", "Vagrant", "Wrist", "Zebra", "Dress", "Basement", "Crib", "Convict", "Actor",
+  "Bunny", "Butcher", "Dorm", "Crown", "Fox", "Gangster", "Garden", "Hiker", "Ketchup", "Palace",
+  "Peach", "Playground", "Sausage", "Summit", "Tombstone", "Tortoise", "Venus", "Yacht", "Airplane", "Chemist",
+  "Dragon", "Church", "Cattle", "Beaver", "Cabin", "Finger", "Foot", "Forest", "Highway", "Island",
+  "Judge", "Lace", "Lipstick", "Lizard", "Mattres", "Mummy", "Pail", "Penguin", "Pilot", "Pizza",
+  "Plaid", "Quail", "River", "Seafood", "Shark", "Sidewalk", "Snake", "Throne", "Transplant", "Trout",
+  "Tutu", "Typist", "Widow", "Blouse", "Box", "Banker", "Banquet", "Donkey", "Denim", "Cook",
+  "Blade", "Cabbage", "Carriage", "Casket", "Belly", "Elbow", "Fruit", "Hand", "Hostess", "Hound",
+  "Jeans", "Lagoon", "Lettuce", "Mars", "Mustard", "Nightgown", "Omelet", "Onion", "Picnic", "Pistol",
+  "Rabbit", "Rod", "Scallop", "Shirt", "Shorts", "Silk", "Skillet", "Slime", "Swimmer", "Viking",
+  "Waiter", "Window", "Chipmunk", "Cookbook", "Crab", "Apron", "Ceiling", "Burglar", "Bug", "Carrot",
+  "Daisy", "Dancer", "Clam", "Cottage", "Diner", "Driver", "Dust", "Fireplace", "Glass", "Grave",
+  "Gravel", "Hawk", "Honey", "Human", "Jelly", "Jury", "Lightning", "Milk", "Missile", "Outlaw",
+  "Panther", "Parsley", "Partner", "Poison", "Pork", "Robber", "Rug", "Server", "Shoulder", "Slug",
+  "Sunset", "Sword", "Taxi", "Velvet", "Marine", "Blackboard", "Couch", "Cellar", "Chest", "Canyon",
+  "Bullet", "Brandy", "Citrus", "Cobra", "Eagle", "Flower", "Football", "Goblin", "Grape", "Guard",
+  "Gymnast", "Iceberg", "Lapel", "Lava", "Liver", "Marsh", "Monster", "Nomad", "Office", "Orchid",
+  "Pigeon", "Pliers", "Pluto", "Pupil", "Salad", "Salt", "Sandwich", "Seal", "Sparrow", "Tunnel",
+  "Turkey", "Turtle", "Ghetto", "Salmon", "Chapel", "Country", "Bank", "Body", "Diver", "Beast",
+  "Buggy", "Forehead", "Fragrance", "Garlic", "Gavel", "Hatchet", "Heart", "Hero", "Jungle", "Kidney",
+  "Luggage", "Pebble", "Perch", "Relish", "Seagull", "Snail", "Star", "Stream", "Suspect", "Swamp",
+  "Table", "Temple", "Tourist", "Truck", "Trombone", "Umpire", "Valley", "Atom", "Cafe", "Camel",
+  "Brick", "Briefcase", "Coffee", "Doughnut", "Coin", "Climber", "Fleet", "Grease", "Knapsack", "Ladder",
+  "Lunch", "Mammal", "Mister", "Money", "Mop", "Ointment", "Plate", "Plaza", "Possum", "Pudding",
+  "Rocket", "Servant", "Shortcake", "Space", "Stomach", "Stone", "Sunrise", "Tile", "Tractor", "Turnip",
+  "Twig", "Victim", "Wardrobe", "Xerox", "Jello", "Cashew", "Dresser", "Agent", "Antler", "Atlas",
+  "Author", "Bathtub", "Award", "Barrel", "Bureau", "Bouquet", "Clothes", "Custard", "Dashboard", "Cyclone",
+  "Expert", "Flask", "Fungus", "Handbag", "Icing", "Juggler", "Lodge", "Mailbox", "Mildew", "Motel",
+  "Necklace", "Patrol", "Peanut", "Pepper", "Pimple", "Radish", "Raft", "Razor", "Rust", "Scotch",
+  "Spider", "Stove", "Subway", "Termite", "Trench", "Tweezers", "Ulcer", "Whiskers", "World", "Cashier",
+  "Beaker", "Comet", "Board", "Dime", "Blockade", "Cupboard", "Curtain", "Crater", "Canal", "Cocktail",
+  "Cloud", "Candy", "Flesh", "Headband", "Hedge", "Leader", "Machine", "Outdoors", "Paper", "Proton",
+  "Puddle", "Robin", "Rooster", "Scissors", "Shelf", "Slope", "Softball", "Spoon", "Tart", "Worker",
+  "Yolk", "Zipper", "Balloon", "Donor", "Concert", "Creature", "Cocoon", "Brook", "Banjo", "Cross",
+  "Bike", "Dustpan", "Freckle", "Freezer", "Globe", "Grill", "Ground", "Idol", "Market", "Medal",
+  "Neutron", "Notebook", "Outfit", "Ozone", "Package", "Pasta", "Pastry", "Patient", "Pecan", "Poet",
+  "Portrait", "Saddle", "Scarecrow", "Scarf", "Sculpture", "Snack", "Spool", "Tribe", "Twister", "Wagon",
+  "Wasp", "Wrench", "Backbone", "Bucket", "Blender", "Crayon", "Badge", "Barley", "Captive", "Empire",
+  "Gallon", "Glove", "Helmet", "Hood", "Hornet", "Journal", "Kleenex", "Loft", "Lumber", "Mask",
+  "Muffin", "Parrot", "Piano", "Piston", "Pocket", "Powder", "Slide", "Statue", "Suitcas", "Tuba",
+  "Virus", "Critic", "Blueprint", "Drawing", "Coral", "Catcher", "Drill", "Drink", "Drug", "Eyelash",
+  "Guitar", "Hook", "Keeper", "Marrow", "Message", "Padding", "Paddle", "Passage", "Perfume", "Primate"
 ];
 
 const PAGE_SIZE = 42;
@@ -131,20 +76,8 @@ const VisualSelectionWord = () => {
   const { userSelectedYes } = useContext(VoteContext);
   const navigate = useNavigate();
 
-  // Shuffle the images to randomize order
-  let shuffledImages = shuffleArray(allImages);
 
-  // Take the first 50 but ensure img82 is included.
-  let initialImages = shuffledImages.slice(0, 48);
-  if (!initialImages.includes(img82)) {
-    const randomIdx = Math.floor(Math.random() * initialImages.length);
-    initialImages[randomIdx] = img82;
-    // Optionally, reshuffle the subset to further randomize order:
-    initialImages = shuffleArray(initialImages);
-  }
-
-  const [items, setItems] = useState(initialImages);
-  const [selected, setSelected] = useState([]);
+  const [items] = useState(() => shuffleArray(allWords));  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [showError, setShowError] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false); // modal state
@@ -182,40 +115,13 @@ const VisualSelectionWord = () => {
     fetchVisual();
   }, []);
 
-  const intervalRef = useRef();
-
-  // Dynamically add new images every minute; images appended are taken sequentially from allImages.
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setItems(prevItems => {
-        // Find remaining images not yet in items
-        const displayed = new Set(prevItems);
-        const remainingImages = allImages.filter(img => !displayed.has(img));
-        if (remainingImages.length === 0) {
-          clearInterval(intervalRef.current);
-          return prevItems;
-        }
-        // Shuffle and take up to 10 new images
-        const shuffled = shuffleArray(remainingImages);
-        const count = Math.min(10, shuffled.length);
-        const newItems = shuffled.slice(0, count);
-        // If this addition will complete the set, clear the interval
-        if (count === remainingImages.length) {
-          clearInterval(intervalRef.current);
-        }
-        return [...prevItems, ...newItems];
-      });
-    }, 60000);
-    return () => clearInterval(intervalRef.current);
-  }, []);
 
 
   // 1. Filter first
   const filteredItems = items.filter(word => {
-    const base = word
-      .split('/').pop().split('.')[0].replace(/_/g, ' ').toLowerCase();
-    const matchesSearch = search === "" || base.includes(search.toLowerCase());
-    const matchesLetter = letterFilter === "" || base.startsWith(letterFilter.toLowerCase());
+    const wordLower = word.toLowerCase();
+    const matchesSearch = search === "" || wordLower.includes(search.toLowerCase());
+    const matchesLetter = letterFilter === "" || wordLower.startsWith(letterFilter.toLowerCase());
     return matchesSearch && matchesLetter;
   });
 
@@ -237,45 +143,38 @@ const VisualSelectionWord = () => {
     }
   };
 
-  const getBaseName = (filename) => {
-    // Extracts the base name before any dot or hash, e.g., "Sibling" from "Sibling.5f884f2a6ae015edf182.png"
-    return filename.split('/').pop().split('.')[0];
-  };
+
 
   const confirmSelection = async () => {
     // Get base names for selected words
-    const selectedBaseNames = selected.map(idx => {
-      const src = items[idx];
-      return getBaseName(src);
-    });
+    const selectedWords = selected.map(idx => items[idx]);
 
-    // Handle visualRepresentation - for words, look for word key
-    let visualBaseName = '';
+    // Handle visualRepresentation
+    let visualWord = '';
     if (visualRepresentation && typeof visualRepresentation === "object") {
       // Check for word key specifically for words
       if (visualRepresentation.word) {
-        visualBaseName = getBaseName(visualRepresentation.word);
+        visualWord = visualRepresentation.word;
       } else {
         // Fallback: get first value
         const firstValue = Object.values(visualRepresentation)[0];
         if (firstValue && typeof firstValue === 'string') {
-          visualBaseName = getBaseName(firstValue);
+          visualWord = firstValue;
         }
       }
     } else if (typeof visualRepresentation === "string") {
-      visualBaseName = getBaseName(visualRepresentation);
+      visualWord = visualRepresentation;
     }
 
     // Check for EXACT match: selected must contain only the visual representation, nothing more
-    const isCorrect = selectedBaseNames.length === 1 && selectedBaseNames[0] === visualBaseName;
+    const isCorrect = selectedWords.length === 1 && selectedWords[0] === visualWord;
 
-    console.log("Selected base names:", selectedBaseNames);
-    console.log("Visual base name:", visualBaseName);
+    console.log("Selected words:", selectedWords);
+    console.log("Visual base name:", visualWord);
     console.log("Is correct:", isCorrect);
 
-    try {
-      await saveBallotSelections(selected.map(idx => items[idx].split('/').pop())); // Save full file names
-      // Use the calculated isCorrect value directly instead of the state
+   try {
+      await saveBallotSelections(selectedWords);
       await saveCorrectSelections(Boolean(isCorrect));
       console.log("Saved to DB! isCorrect:", isCorrect);
       navigate("/voting");
@@ -376,59 +275,27 @@ const VisualSelectionWord = () => {
               {selected.length} selected
             </div>
             
-            <p className="scroll-instruction-text">
-              Scroll through the words and use the "Next page" button below to see more.
-            </p>
+          <div className="page-counter-badge">
+              Showing {page * PAGE_SIZE + 1}-{Math.min((page + 1) * PAGE_SIZE, filteredItems.length)} of {filteredItems.length} pictures
+            </div>
           </div>
+          
           
           <div className="pictures-scroll-container">
             <div className="visual-select-grid-pictures">
               {pagedItems.length === 0 ? (
-              <p className="no-pictures-message">No pictures found. Try adjusting your search.</p>
+              <p className="no-pictures-message">No words found. Try adjusting your search.</p>
             ) : (
-              pagedItems.map((imgSrc, idx) => {
-                const globalIdx = items.indexOf(imgSrc); // Use index from items for selection
+              pagedItems.map((word, idx) => {
+                const globalIdx = items.indexOf(word); // Use index from items for selection
                 return (
                   <div
                     key={globalIdx}
                     className={`visual-selection-picture${selected.includes(globalIdx) ? " selected" : ""}`}
                     onClick={() => handleSelect(globalIdx)}
-                    style={{
-                      cursor: "pointer",
-                      width: 180,
-                      height: 140,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: "#fff",
-                      margin: "0 auto"
-                    }}
                   >
-                    <div
-                      className="picture-img-wrapper"
-                      style={{
-                        width: "100%",
-                        height: 90,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        background: "#fff"
-                      }}
-                    >
-                      <img
-                        src={imgSrc}
-                        alt={`visual-${globalIdx}`}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "contain",
-                          background: "#fff"
-                        }}
-                      />
-                    </div>
-                    <div className="picture-label" style={{ marginTop: 8, fontWeight: "bold", textAlign: "center" }}>
-                      {imgSrc.split('/').pop().split('.')[0].replace(/_/g, ' ')}
+                    <div className="picture-label">
+                      {word}
                     </div>
                   </div>
                 );
@@ -436,10 +303,13 @@ const VisualSelectionWord = () => {
             )}
             </div>
           </div>
-           <div className="pagination-buttons" style={{ display: "flex", justifyContent: "center", gap: "16px", marginTop: "16px" }}>
+         <div className="pagination-buttons">
             <button className="button" onClick={() => setPage(page - 1)} disabled={page === 0} aria-label="Previous page">
               ←
             </button>
+              <span className="page-counter">
+              Page {page + 1} of {totalPages}
+            </span>
             <button className="button" onClick={() => setPage(page + 1)} disabled={page >= totalPages - 1} aria-label="Next page">
               →
             </button>
@@ -496,8 +366,7 @@ const VisualSelectionWord = () => {
                 }
               >
                 {selected.map(idx => {
-                  const imgSrc = items[idx];
-                  const label = imgSrc.split('/').pop().split('.')[0].replace(/_/g, ' ');
+                  const word = items[idx];
                   return (
                     <div
                       key={idx}
@@ -506,13 +375,14 @@ const VisualSelectionWord = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        justifyContent: "center",
                         width: 140,
-                        height: 180,
+                        height: 100,
                         border: "2px solid #c1bfbfff",
                         borderRadius: 8,
                         background: "#fff",
                         boxSizing: "border-box",
-                        padding: 0,
+                        padding: "8px",
                         margin: 0,
                         position: "relative",
                       }}
@@ -546,47 +416,20 @@ const VisualSelectionWord = () => {
                         ×
                       </button>
                       <div
-                        className="preview-word-img-container"
-                        style={{
-                          width: "100%",
-                          height: 110,
-                          overflow: "hidden",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <img
-                          src={imgSrc}
-                          alt={`preview-${idx}`}
-                          style={{
-                            maxWidth: "100%",
-                            maxHeight: "100%",
-                            width: "auto",
-                            height: "auto",
-                            display: "block",
-                            objectFit: "contain",
-                          }}
-                        />
-                      </div>
-                      <div
                         className="picture-label"
                         style={{
-                          marginTop: 0,
                           fontWeight: "bold",
                           textAlign: "center",
                           fontSize: "1.1rem",
                           color: "#222",
-                          textTransform: "capitalize",
                           width: "100%",
                           lineHeight: 1.1,
-                          padding: "4px 2px",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                         }}
                       >
-                        {label}
+                        {word}
                       </div>
                     </div>
                   );
@@ -610,4 +453,3 @@ const VisualSelectionWord = () => {
 };
 
 export default VisualSelectionWord;
-

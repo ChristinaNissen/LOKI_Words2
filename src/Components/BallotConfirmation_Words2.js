@@ -85,25 +85,11 @@ function BallotConfirmationWords2(setIsLoggedIn) {
       </li>
     </ul>
   </div>
-          <img
-            src={word}
-            className="image-word"
-            alt="Visual ballot"
-            style={{
-              maxWidth: "100%",
-              maxHeight: "400px",
-              marginTop: "0px",
-              borderColor: "#c1bfbfff",
-              borderWidth: "2px",
-              borderStyle: "solid"
-            }}
-          />
-       
+   <div className="confirmation-card-label" style={{fontWeight: "bold", fontSize: "4rem", marginTop: "40px", marginBottom: "40px", textAlign: "center"}}>
+            Actress
+          </div>
 
             <div className="confirmation-info">
-              <div className="confirmation-card-label" style={{fontWeight: "bold", fontSize: "1.5rem", marginTop: "10px"}}>
-                Actress
-              </div>
               <div className="confirmation-datetime">{dateTime}</div>
               <div className="confirmation-candidate"> {votedCandidate}</div>
             </div>
