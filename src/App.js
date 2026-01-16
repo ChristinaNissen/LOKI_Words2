@@ -24,7 +24,7 @@ import Parse from "parse";
 //const PARSE_HOST_URL = "https://parseapi.back4app.com/";
 //const PARSE_JAVASCRIPT_KEY = "AXphTNbNhIt6mb9NK5xa2I5SKZ0UwxyBl3aAAH1u";
 
-Parse.initialize("jtO0rpfkWou1ZaizNu8Ih2kVvpbZZVI7seveuqTI", "6DMKiq09hmLpDnawXB92OzCVHZ7VoSZGjDw4dY8I");
+Parse.initialize("rCVvxSehaAiskyXjft8PHZPzjTL5VBfOk9RWEHat", "jf9dLYOdHOeg6KJLCkW9v1umeRhqiwXo9yDHr9ZN");
 Parse.serverURL = "https://parseapi.back4app.com/";
 //Parse.serverURL = PARSE_HOST_URL;
 
