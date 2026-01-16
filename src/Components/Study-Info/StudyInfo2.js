@@ -121,7 +121,7 @@ const StudyInfo2 = () => {
             await logoutVoter();
             console.log("Logout complete - redirecting to survey...");
             window.location.href =
-              "https://www.survey-xact.dk/LinkCollector?key=T5JG3UXLJ215";
+              "https://www.survey-xact.dk/LinkCollector?key=T5JG3UXLJ215&condition=6.0&longvarnames=";
           }}
         >
           Go to survey
