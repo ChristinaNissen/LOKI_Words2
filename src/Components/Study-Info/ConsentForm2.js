@@ -48,7 +48,7 @@ const ConsentForm2 = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            https://participant-help.prolific.co/hc/en-gb/articles/360022342094-How-do-I-withdraw-my-participation-in-a-study
+            https://participant-help.prolific.com/en/articles/445041-how-to-return-a-submission-on-prolific
           </a>
           After completing the study, you may still request to have your data deleted until 14 days after submitting the survey by contacting the researhers and provide your Prolific ID, which allows us to locate and remove your data. After this deadline, it will no longer be possible to delete your data.
         </p>
