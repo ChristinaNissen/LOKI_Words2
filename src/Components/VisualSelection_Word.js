@@ -62,22 +62,14 @@ const allWords = [
 
 const PAGE_SIZE = 42;
 
-// Helper function: Fisher-Yates shuffle
-const shuffleArray = (array) => {
-  const newArr = array.slice();
-  for (let i = newArr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-  }
-  return newArr;
-};
-
 const VisualSelectionWord = () => {
   const { userSelectedYes } = useContext(VoteContext);
   const navigate = useNavigate();
 
 
-  const [items] = useState(() => shuffleArray(allWords));  const [selected, setSelected] = useState([]);
+  // Sort the words alphabetically for easier navigation
+  const [items] = useState(() => [...allWords].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())));
+  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [showError, setShowError] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false); // modal state
@@ -215,6 +207,7 @@ const VisualSelectionWord = () => {
               <li>The system will not reveal if your selection is correct for security reasons.</li>
               <li>Only the correct selection will ensure that your vote gets updated and counted into the results.</li>
               <li>If you are unsure or cannot remember your words, please contact election officials at your polling station.</li>
+              <li>If someone is pressuring you to change your vote, you can select cards that do not match your previous ballots. The system will not update your vote, and no one will know about this.</li>
             </ul>
           </div>
           <div className="filter-card">
@@ -335,10 +328,10 @@ const VisualSelectionWord = () => {
             <div className="modal-picture">
 
               <p style={{fontSize: "18px", fontWeight: "bold"}}>
-                Review your selected word{selected.length > 1 ? "s" : ""}
+                Please review your selected cards below
               </p>
-              <p style={{fontSize: "16px", marginTop: "8px", marginBottom: "16px"}}>
-                Please verify that your selection is correct. Once confirmed, you will not receive feedback on whether this selection is correct.
+               <p style={{fontSize: "16px", marginTop: "0px", marginBottom: "16px"}}>
+                Once confirmed, you will not receive feedback on whether your selection is correct. <br></br>If your selection is incorrect, your vote will <strong>NOT be updated</strong>.
               </p>
               <div className="selected-pictures-preview-picture"
                 style={

@@ -22,19 +22,17 @@ const NoPrivateMode = () => {
 
         <div className="security-box-warning">
           <p className="text-small">
-            <strong>Why use private browsing?</strong><br/>
-Private (incognito) mode helps protect your voting privacy by ensuring your session and activity are not saved on your device. The voting system itself never reveals whether you have voted before or how you have voted. However, your browser may otherwise keep traces such as history, cookies, or cached data, which could show that you accessed the voting platform.
-<br></br>
-<br></br>
-Using private browsing helps prevent others from discovering whether you have participated in online voting, even if they have access to your device. This is especially important for protecting you against coercion or unwanted scrutiny, and helps ensure your vote remains confidential.
-<br /><br />
-            <a href="/help#incognito-mode" className="faq-link">Read more in the FAQ</a>
+           <strong>Security Feature:</strong><br/>
+          For your security and privacy, please use your browser's private (incognito)
+          browsing mode when using the voting platform. This ensures that your session is
+          protected and your browsing data is not retained.
           </p>
         </div>
 
         <div className="study-modal study-modal-static">
           <p>
-            For the purposes of this study, please do not use private browsing or open the login in a new window or tab.<br /><br />
+            For the purposes of this study, please do not use private browsing or open the login in a new window or tab.
+            Otherwise, your participation may not be correctly registered on Prolific.<br /><br />
             To ensure your interaction is properly registered, simply click the login button below to proceed.
           </p>
           <div className="study-modal-actions">

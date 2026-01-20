@@ -7,13 +7,30 @@ import word from "../Words/Sibling.png";
 import ProcessBar from "./ProcessBar.js"; 
 import { useLocation } from "react-router-dom";
 import VoteContext from "../Contexts/VoteContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { saveVisuaRepresentation } from "../API/Voter";
 
 function BallotConfirmationWord(setIsLoggedIn) {
   const navigate = useNavigate();
   const location = useLocation();
   const { userSelectedYes } = useContext(VoteContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    
+    // Prevent browser back button from leaving confirmation page
+    const handlePopState = (event) => {
+      event.preventDefault();
+      window.history.pushState(null, null, window.location.pathname);
+    };
+    
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
 
   // Retrieve candidate name from navigation state; fallback if not set.
   const votedCandidate = location.state?.votedCandidate || "Candidate Unknown";
@@ -85,6 +102,9 @@ function BallotConfirmationWord(setIsLoggedIn) {
       <li>
         You should <strong>not share</strong> your word with anyone, and you should <strong>not save</strong> it anywhere.
       </li>
+      <li>
+        If you forget this card, you will <strong>NOT be able to update your vote</strong> later in the election.
+      </li>
     </ul>
   </div>
            <div className="confirmation-card-label" style={{fontWeight: "bold", fontSize: "4rem", marginTop: "40px", marginBottom: "40px", textAlign: "center"}}>
@@ -108,8 +128,8 @@ function BallotConfirmationWord(setIsLoggedIn) {
     <div className="modal-confirmation">
       <p style={{ fontSize: "18px", fontWeight: "bold" }}>Are you sure you want to log out?</p>
       <p>
-        When you log out, you will not be able to view your word again.<br />
-        Make sure you have memorised your word before proceeding.
+        When you log out, you will not be able to view your card again.<br />
+        If you forget your card, you will <strong>NOT be able to update your vote</strong> later in the election.
       </p>
       <div style={{ display: "flex", gap: "16px", justifyContent: "center", marginTop: "8px" }}>
         <button className="button" onClick={handleLogout}>Yes</button>

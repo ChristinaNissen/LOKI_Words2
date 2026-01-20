@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { getUserID, logoutVoter } from "../../API/Voter";
 import "./study-info.css";
 
 const StudyInfo2 = () => {
-  const navigate = useNavigate();
   const [userID, setUserID] = useState(null);
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
 
@@ -16,23 +14,23 @@ const StudyInfo2 = () => {
     fetchUserID();
   }, []);
 
-  // Prevent back navigation by redirecting to current page
+
   useEffect(() => {
-    const preventBackNavigation = (event) => {
-      window.history.pushState(null, '', window.location.pathname);
-      navigate('/studyinfo2', { replace: true });
+    window.scrollTo(0, 0);
+    
+    // Prevent browser back button from leaving studyinfo2 page
+    const handlePopState = (event) => {
+      event.preventDefault();
+      window.history.pushState(null, null, window.location.pathname);
     };
-
-    // Push initial state
-    window.history.pushState(null, '', window.location.pathname);
-
-    // Listen for popstate event (back button)
-    window.addEventListener('popstate', preventBackNavigation);
-
+    
+    window.history.pushState(null, null, window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+    
     return () => {
-      window.removeEventListener('popstate', preventBackNavigation);
+      window.removeEventListener('popstate', handlePopState);
     };
-  }, [navigate]);
+  }, []);
 
   function copyIdToClipBoard() {
     if (userID) {
