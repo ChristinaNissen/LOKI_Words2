@@ -207,7 +207,7 @@ const VisualSelectionWord = () => {
               <li>The system will not reveal if your selection is correct for security reasons.</li>
               <li>Only the correct selection will ensure that your vote gets updated and counted into the results.</li>
               <li>If you are unsure or cannot remember your words, please contact election officials at your polling station.</li>
-              <li>If someone is pressuring you to change your vote, you can select cards that do not match your previous ballots. The system will not update your vote, and no one will know about this.</li>
+              <li>If someone is pressuring you to change your vote, you can select words that do not match your previous ballots. The system will not update your vote, and no one will know about this.</li>
             </ul>
           </div>
           <div className="filter-card">
@@ -328,7 +328,7 @@ const VisualSelectionWord = () => {
             <div className="modal-picture">
 
               <p style={{fontSize: "18px", fontWeight: "bold"}}>
-                Please review your selected cards below
+                Please review your selected word(s) below
               </p>
                <p style={{fontSize: "16px", marginTop: "0px", marginBottom: "16px"}}>
                 Once confirmed, you will not receive feedback on whether your selection is correct. <br></br>If your selection is incorrect, your vote will <strong>NOT be updated</strong>.
