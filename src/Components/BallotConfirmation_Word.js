@@ -8,7 +8,7 @@ import ProcessBar from "./ProcessBar.js";
 import { useLocation } from "react-router-dom";
 import VoteContext from "../Contexts/VoteContext";
 import { useContext, useState, useEffect } from "react";
-import { saveVisuaRepresentation } from "../API/Voter";
+import { saveVisuaRepresentation, setSessionEnd } from "../API/Voter";
 
 function BallotConfirmationWord(setIsLoggedIn) {
   const navigate = useNavigate();
@@ -54,6 +54,7 @@ function BallotConfirmationWord(setIsLoggedIn) {
   const handleLogout = async () => {
     try {
       await saveVisuaRepresentation({ word });
+      await setSessionEnd();
       navigate("/studyinfo2");
     } catch (error) {
       console.error("Error during logout:", error);
